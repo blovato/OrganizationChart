@@ -1,0 +1,22 @@
+{
+  "name": "orgchart",
+  "version": "1.0.0",
+  "description": "Mean stack org chart for DPW",
+  "main": "app.js",
+  "scripts": {
+    "test": ""
+  },
+  "keywords": [
+    "org",
+    "chart"
+  ],
+  "author": "Brenten Lovato",
+  "license": "ISC",
+  "dependencies": {
+    "angular": "^1.5.2",
+    "d3": "^3.5.16",
+    "express": "^4.13.4",
+    "mongoose": "^4.4.8",
+    "underscore": "^1.8.3"
+  }
+}
