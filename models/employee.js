@@ -3,8 +3,6 @@ var mongoose = require('mongoose');
 var Schema   = mongoose.Schema;
 var ObjectId = Schema.ObjectId;
 
-mongoose.connect('mongodb://devwebtest/employeesDPW');
-
 //***** SCHEMAS
 var basicNameSchema = new Schema({
   "dsw": Number,

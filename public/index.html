@@ -1,0 +1,28 @@
+<!-- index.html -->
+<!doctype html>
+<!-- ASSIGN OUR ANGULAR MODULE -->
+<html ng-app="orgChart">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DPW Organization Chart</title>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script>
+  <script src="core.js"></script>
+</head>
+
+<body ng-controller="ChartCtrl">
+  <h1>employee length: <span class="label label-info">{{ employees.length }}</span></h1>
+  <div id="list" class="row">
+    <!-- LOOP OVER THE TODOS IN $scope.todos -->
+    <div class="checkbox" ng-repeat="employee in employees">
+      <p>Name: {{ employee.name.first + " " + employee.name.last }}</p>
+      <p>DSW ID: {{ employee.dsw }}</p>
+      <p>Bio: {{ employee.bio }}</p>
+      <img src="{{ employee.imageBase64 }}">
+    </div>
+  </div>
+</body>
+
+</html>
