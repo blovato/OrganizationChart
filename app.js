@@ -1,11 +1,12 @@
 var express = require('express');
 var app = express();
-
 var mongoose = require("mongoose");
 mongoose.connect('mongodb://devwebtest/employeesDPW');
 
-var Employee      = require('./models/employee.js'),
-employeeFormatted = require("./models/employeeFormatted.js");
+// models
+var Employee = require('./models/employee.js'),
+csv_update   = require('./models/csv_update.js'), // csv update scheduler
+employeeSeed = require("./models/seed.js");
 
 app.use(express.static(__dirname + '/public'));
 
