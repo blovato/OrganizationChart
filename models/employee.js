@@ -6,8 +6,7 @@ var ObjectId = Schema.ObjectId;
 var basicNameSchema = new Schema({
   "dsw": Number,
 	"first": String,
-	"last": String,
-  "_id": ObjectId
+	"last": String
 });
 
 var employeeSchema = new Schema({
@@ -31,7 +30,6 @@ var employeeSchema = new Schema({
   "bio": String,
   "imageBase64": String,
   "manager": basicNameSchema,
-  "children": [basicNameSchema],
   "createdAt": Date,
   "editedAt": Date
 });
@@ -40,15 +38,6 @@ var employeeSchema = new Schema({
 // returns full name
 employeeSchema.methods.fullName = function fullName(){ 
   return this.name.first + " " + this.name.last 
-};
-
-// returns non private information. Hides DSW IDs and 
-employeeSchema.methods.child = function child(){
-  if(this.children.length > 0){
-    return this.children;
-  } else {
-    return null
-  }
 };
 
 // returns non private information. Hides DSW IDs and 

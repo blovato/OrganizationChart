@@ -3,16 +3,12 @@
 // changes then exporting to a ./data/output.csv
 var _        = require('underscore');
 var fs       = require('fs');
-var json2csv = require('json2csv');
 var schedule = require('node-schedule');
-
 var mongoose = require("mongoose");
 var Employee = require('./employee.js');
 
-// daily at midnight = '0 0 * * * *'
-var csv_updater = schedule.scheduleJob('*/10 * * * * *', function(){
-
-});
+// daily at midnight cron = '0 0 * * * *'
+var csv_updater = schedule.scheduleJob('* * * * *', function(){
 
 	var CSV = 'colour,email_address,full_name,id,job_title,mugshot_url_template,parent,phone_numbers,statistic_1,statistic_2,summary,web_url\n';
 
@@ -22,32 +18,37 @@ var csv_updater = schedule.scheduleJob('*/10 * * * * *', function(){
 	    console.log(err);
 	  } else {
 	  	_.each(docs, function(val){
+	  		CSV += "-"+","; // colour
+	  		CSV += val.contact.email +","; // email
+	  		CSV += val.name.first + ' ' + val.name.last+","; // full name
+	  		CSV += val.dsw+","; // dsw number
+	  		CSV += val.position.title+","; // position title
 
-	  		CSV += "-"+",";
-	  		CSV += val.contact.email +",";
-	  		CSV += val.name.first + ' ' + val.name.last+",";
-	  		CSV += val.dsw+",";
-	  		CSV += val.position.title+",";
-
+	  		// comma esape base64
 	  		var img = [val.imageBase64];
 	  		img.push('"');
 	  		img.unshift('"');
-	  		console.log(img.join(""));
-	  		CSV += img.join("") +",";
-	  		CSV += val.manager.dsw+",";
-	  		CSV += val.contact.phone+",";
-	  		CSV += val.editedAt+",";
-	  		CSV += val.createdAt+",";
-	  		CSV += val.bio+",";
-	  		CSV += "-"+"\n";
+	  		CSV += img.join("") +","; // base64 encoded image
 
-	  		//console.log(CSV);
+	  		// test if CEO
+	  		if(val.manager.dsw === null){
+	  			CSV += ""+","; // ceo's manager is null
+	  		} else {
+	  			CSV += val.manager.dsw+","; // parent/manager's dsw number
+	  		}
+
+	  		CSV += val.contact.phone+","; // phone number
+	  		CSV += val.editedAt+","; //stat 1
+	  		CSV += val.createdAt+","; // stat 2
+	  		CSV += val.bio+","; // about text
+	  		CSV += "-"+"\n"; // web url
 	  	});
 		}
 
+		// export to data dir
 	  fs.writeFile('./public/data/output.csv', CSV, function(err) {
 	    if (err) throw err;
-	    console.log('csv saved');
+	    console.log('./public/data/output.csv saved');
 	  });
-	
 	});
+});
