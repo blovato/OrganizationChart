@@ -558,7 +558,7 @@ d3.csv("data/output.csv", function(csv_data) {
 
 
   var data = csv_to_json(csv_data)
-  console.log(data);
+  
   var chart = organisation_chart(data, "#svgholder")
 
   // Create search box

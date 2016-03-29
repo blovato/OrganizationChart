@@ -25,7 +25,8 @@ var brenten = new Employee({
   "manager": {
     "dsw": null,
     "first": "",
-    "last": ""
+    "last": "",
+    "email": ""
   },
   "createdAt": new Date,
   "editedAt": new Date
@@ -56,7 +57,8 @@ var jason = new Employee({
   "manager": {
     "dsw": 1,
     "first": "Brenten",
-    "last": "Lovato"
+    "last": "Lovato",
+    "email": "brenten.lovato@sfdpw.org"
   },
   "createdAt": new Date,
   "editedAt": new Date
@@ -87,7 +89,8 @@ var john = new Employee({
   "manager": {
     "dsw": 1,
     "first": "Brenten",
-    "last": "Lovato"
+    "last": "Lovato",
+    "email": "brenten.lovato@sfdpw.org"
   },
   "createdAt": new Date,
   "editedAt": new Date
@@ -118,7 +121,8 @@ var james = new Employee({
   "manager": {
     "dsw": 2,
     "first": "John",
-    "last": "Stamos"
+    "last": "Stamos",
+    "email": "jstamos@sfdpw.org"
   },
   "createdAt": new Date,
   "editedAt": new Date
@@ -127,7 +131,8 @@ var james = new Employee({
 });
 
 // remove all from db
-/* save model in db
+// save model in db
+/*
 Employee.remove({}, function(d){console.log("deleted yay");});
 john.save();
 brenten.save();

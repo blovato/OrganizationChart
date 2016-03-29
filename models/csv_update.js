@@ -7,12 +7,11 @@ var schedule = require('node-schedule');
 var mongoose = require("mongoose");
 var Employee = require('./employee.js');
 
-// daily at midnight cron = '0 0 * * * *'
-var csv_updater = schedule.scheduleJob('* * * * *', function(){
+var updateCSV = function(){
 
 	var CSV = 'colour,email_address,full_name,id,job_title,mugshot_url_template,parent,phone_numbers,statistic_1,statistic_2,summary,web_url\n';
 
-  // find all employees and create csv from them
+    // find all employees and create csv from them
 	Employee.find({}, function (err, docs) {
 	  if (err){
 	    console.log(err);
@@ -51,4 +50,9 @@ var csv_updater = schedule.scheduleJob('* * * * *', function(){
 	    console.log('./public/data/output.csv saved');
 	  });
 	});
-});
+};
+
+// daily at midnight cron = '0 0 * * * *'
+var csv_updater = schedule.scheduleJob('* * * * *', updateCSV);
+
+module.exports = {update: updateCSV};

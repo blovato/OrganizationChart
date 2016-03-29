@@ -6,7 +6,8 @@ var ObjectId = Schema.ObjectId;
 var basicNameSchema = new Schema({
   "dsw": Number,
 	"first": String,
-	"last": String
+	"last": String,
+  "email": String
 });
 
 var employeeSchema = new Schema({
