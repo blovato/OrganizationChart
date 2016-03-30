@@ -554,7 +554,7 @@ function organisation_chart(all_data, selection_string) {
   }
 }
 
-d3.csv("data/output.csv", function(csv_data) {
+d3.csv("../data/output.csv", function(csv_data) {
 
 
   var data = csv_to_json(csv_data)

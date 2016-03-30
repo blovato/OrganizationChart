@@ -1,0 +1,26 @@
+body {
+  background: #f5f2f0;
+}
+
+.divider-title {
+  font-weight: 300;
+}
+
+.section {
+  margin: 0 20px;
+}
+
+#videoElement {
+  width: 100%;
+  height: 375px;
+  background-color: #f5f2f0;
+}
+
+.card {
+  opacity: 0;
+  top: 150px;
+}
+
+h4.center-align {
+	opacity: 0;
+}

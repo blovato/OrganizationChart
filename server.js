@@ -10,12 +10,15 @@ var Employee = require('./models/employee.js');
 var employeeSeed = require("./models/seed.js");
 var csv = require('./models/csv_update.js'); // csv update scheduler
 
-app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.json()); // to support JSON-encoded bodies
 app.use(bodyParser.urlencoded({ // to support URL-encoded bodies
   extended: true
 }));
+app.set('views', __dirname + '/views');
+app.set('view engine', 'jade');
+app.use(express.static(__dirname + '/public'));
 
+/**** API ****/
 // api route to get users based on their dsw number
 // accepts arguments dsw & first & last
 // /_api/employees?dsw=[XXXXXX]&first=[FIRSTNAME]&last=[LASTNAME]
@@ -33,7 +36,9 @@ app.get('/api/employee', function(req, res) {
       if (docs !== null) {
         res.json(docs);
       } else {
-        res.send("unable to locate any employees with that DSW number");
+        res.send({
+          error: "unable to locate any employees with that DSW number"
+        });
       }
     });
   } else if (req.query.hasOwnProperty('first') && req.query.hasOwnProperty('last')) {
@@ -51,7 +56,6 @@ app.get('/api/employee', function(req, res) {
   } else {
     res.send("Please supply a dsw number or both the first and last name as parameters");
   }
-
 });
 
 // api route to add a new user
@@ -100,25 +104,38 @@ app.post('/api/employee/new', function(req, res) {
 });
 
 // api route to update existing user
-app.post('/api/employee/update', function(req, res) {
-  console.log(req.body);
+app.post('/api/employee/:dsw/update', function(req, res) {
+  var r = req.body;
+  r.editedAt = new Date;
+  // find Manager's DSW and email if not provided
+  Employee.findOneAndUpdate({
+    'dsw': req.params.dsw
+  }, {$set: r }, function(err, doc) {
+    if (err) res.send(err);
+    res.send("Employee Updated");
+  });
+
+  csv.update();
 });
 
-
+/**** ROUTES ****/
 // view route to org chart viewer
+app.get('/orgchart', function(req, res) {
+  res.sendfile(__dirname + '/public/orgchart/orgchart.html');
+});
+
+// front end routing handled by Angular
 app.get('/', function(req, res) {
-  res.sendfile('./public/index.html');
+  res.render('layout');
 });
 
-// view route to new employee
-app.get('/new', function(req, res) {
-  res.sendfile('./public/new.html');
+app.get('/partials/:name', function(req, res) {
+  var name = req.params.name;
+  res.render('partials/' + name);
 });
 
-// view route to update employee
-app.get('/update/:dsw', function(req, res) {
-  console.log(req.params.dsw);
-  res.sendfile('./public/new.html');
+app.get('*', function(req, res) {
+  res.render('layout');
 });
 
-app.listen(3000);
+app.listen(3001);

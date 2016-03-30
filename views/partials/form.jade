@@ -1,0 +1,134 @@
+.container
+  h4.center-align(ng-bind='form_title', 
+  	style='grey-text text-lighten-2')
+       
+  .card
+    form(name='employeeForm')
+      .section
+        h4.divider-title Your Photo
+        .row.valign-wrapper
+          .col.s12.m4.l3      
+            img.circle.center(ng-show='imageIn', 
+                ng-src='{{imageIn.url}}',
+                style="width: 150px; height:150px")
+          .col.s12.m8.l9           
+            .file-field.input-field.valign
+              .btn
+                span Image             
+                input(type='file', 
+                			accept='image/*', 
+                			image='imageIn', 
+                			resize-max-height='150', 
+                			resize-max-width='150', 
+                			resize-quality='0.7', 
+                			capture='camera', 
+                			required='')            
+              .file-path-wrapper
+                input.file-path.validate(type='text') 
+        
+      //video(autoplay="true" id="videoElement" style="background-color:rgba(0,0,0,.46)")
+      .divider(style='position: relative; bottom: 6px;')       
+      .section
+        h4.divider-title Your Information         
+        .row
+          .input-field.col.s12.l3
+            input#dsw.validate(ng-model='dsw', 
+            	type='number', 
+            	required='')             
+            label(for='dsw') DSW Number
+
+          .input-field.col.s12.l3
+            input#first_name.validate(ng-model='first', 
+            	type='text', 
+            	required='')                             
+            label(for='first_name') First Name
+                     
+          .input-field.col.s12.l3
+            input#last_name.validate(ng-model='last', 
+            	type='text', 
+            	required='')                             
+            label(for='last_name') Last Name
+                   
+          .input-field.col.s12.l3
+            input#nick_name(ng-model='nickname', 
+            	type='text')                            
+            label(for='nick_name') Nickname 
+              em (optional)
+                   
+        .row
+          .input-field.col.s12.l6
+            input#phone.validate(ng-model='phone', 
+            	type='tel', 
+            	required='')                              
+            label(for='phone') Phone
+                      
+          .input-field.col.s12.l6
+            input#email.validate(ng-model='email', 
+            	type='email', 
+            	required='')                               
+            label(for='email') Email
+                   
+        .row
+          .input-field.col.s12.l3
+            input#title.validate(ng-model='title', 
+            	type='text', 
+            	required='')                              
+            label(for='title') Job Title
+                      
+          .input-field.col.s12.l3
+            input#classification.validate(ng-model='classification', 
+            	type='text', 
+            	required='')                             
+            label(for='classification') Classification
+                       
+          .input-field.col.s12.l3
+            input#bureau.validate(ng-model='bureau', 
+            	type='text', 
+            	required='')                               
+            label(for='bureau') Bureau
+                      
+          .input-field.col.s12.l3
+            input#department.validate(ng-model='department', 
+            	type='text', 
+            	required='')                              
+            label.active(for='department') Department
+                  
+        .row
+          .input-field.col.s12
+            textarea#bio.materialize-textarea(ng-model='bio')                              
+            label(for='bio') Bio
+              
+      .divider
+               
+      .section
+        h4.divider-title Your Manager's Information
+                
+        .row
+          .input-field.col.s12.l3
+            input#manager_dsw(ng-model='manager_dsw', 
+            	type='number')                              
+            label(for='manager_dsw') DSW Number 
+              em (optional)
+
+          .input-field.col.s12.l3
+            input#manager_first.validate(ng-model='manager_first', 
+            	type='text', 
+            	required='')                             
+            label(for='manager_first') First Name
+                      
+          .input-field.col.s12.l3
+            input#manager_last.validate(ng-model='manager_last', 
+            	type='text', 
+            	required='')                              
+            label(for='manager_last') Last Name
+                      
+          .input-field.col.s12.l3
+            input#manager_email(ng-model='manager_email', 
+            	type='email')                              
+            label(for='manager_email') Email 
+              em (optional)  
+
+      .section
+        button.btn.waves-effect.waves-light(
+        	ng-click='submitEmployeeForm(imageIn)', 
+        	type='submit') Submit
