@@ -53,6 +53,6 @@ var updateCSV = function(){
 };
 
 // daily at midnight cron = '0 0 * * * *'
-var csv_updater = schedule.scheduleJob('* * * * *', updateCSV);
+// var csv_updater = schedule.scheduleJob('* * * * *', updateCSV);
 
 module.exports = {update: updateCSV};

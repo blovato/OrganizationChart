@@ -81,6 +81,7 @@ app.post('/api/employee/new', function(req, res) {
           autoIndex: true
         });
         newEmployee.save();
+        csv.update();
       } else if (docs.length > 1) {
         res.send({
           error: "Too many records returned, please enter Manager's email or dsw and retry"
@@ -97,9 +98,10 @@ app.post('/api/employee/new', function(req, res) {
       autoIndex: true
     });
     newEmployee.save();
+    csv.update();
   }
 
-  csv.update();
+  
   res.send("Employee Saved");
 });
 
@@ -113,9 +115,8 @@ app.post('/api/employee/:dsw/update', function(req, res) {
   }, {$set: r }, function(err, doc) {
     if (err) res.send(err);
     res.send("Employee Updated");
+    csv.update();
   });
-
-  csv.update();
 });
 
 /**** ROUTES ****/

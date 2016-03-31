@@ -173,6 +173,7 @@ employeeApp.controller('employeeUpdateCtrl', function($scope, $http, $routeParam
       $http.post('/api/employee/' + $routeParams.dsw + '/update', data)
         .then(function(res) {
           console.log(res);
+          Materialize.toast($scope.first +' '+ $scope.last+ ' updated', 4000)
         }, function(err) {
           console.log(err);
         });
@@ -184,9 +185,10 @@ var pageLoadAnimation = function() {
   $('.card').animate({
     opacity: 1,
     top: 0
-  }, 700, 'swing', function() {
+  }, 1500, 'easeOutQuart');
+  setTimeout(function() {
     $('h4.center-align').animate({
       opacity: 1
-    }, 700, 'swing');
-  });
+    }, 600, 'swing');
+  }, 600);
 };
