@@ -1,3 +1,6 @@
+a#back-btn.btn-floating.btn-large.transparent(
+    href='/employee/') 
+    i.rotate180.material-icons trending_flat
 .container
   h4.center-align(ng-bind='form_title', 
   	style='grey-text text-lighten-2')
@@ -21,8 +24,7 @@
                 			resize-max-height='150', 
                 			resize-max-width='150', 
                 			resize-quality='0.7', 
-                			capture='camera', 
-                			required='')            
+                			capture='camera')            
               .file-path-wrapper
                 input.file-path.validate(type='text') 
         

@@ -6,6 +6,10 @@ var employeeApp = angular.module('employeeApp', ['imageupload', 'ngRoute'])
         requireBase: false
       });
       $routeProvider
+        .when("/employee/", {
+          templateUrl: "partials/list.jade",
+          controller: "employeeListCtrl"
+        })
         .when("/employee/new", {
           templateUrl: "partials/form.jade",
           controller: "employeeNewCtrl"
@@ -20,23 +24,17 @@ var employeeApp = angular.module('employeeApp', ['imageupload', 'ngRoute'])
     }
   ]);
 
+employeeApp.controller('employeeListCtrl', function($scope, $http) {
+  $http.get('/api/employee')
+    .then(function(res){
+      $scope.employees = res.data;
+      console.log(res.data);
+    }, error)
+});
+
 employeeApp.controller('employeeNewCtrl', function($scope, $http) {
-  /* stream webcam TODO
-    var video = document.querySelector("#videoElement");
-
-    navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia || navigator.oGetUserMedia;
-
-    if (navigator.getUserMedia) {
-      navigator.getUserMedia({
-        video: true
-      }, function handleVideo(stream) {
-        video.src = window.URL.createObjectURL(stream);
-      }, function videoError(err) {
-        console.log(err);
-      });
-    }
-  */
   pageLoadAnimation();
+
   // set scope
   $scope.form_title = "New Employee Form";
   $scope.imageIn = {};
@@ -48,6 +46,14 @@ employeeApp.controller('employeeNewCtrl', function($scope, $http) {
 
 
   $scope.submitEmployeeForm = function(image) {
+    // check image
+
+    var imageOut;
+    if (image.hasOwnProperty('resized')) {
+      imageOut = image.resized.dataURL;
+    } else {
+      imageOut = $scope.imageIn.url
+    }
     // check if form data is valid
     if ($scope.employeeForm.$valid) {
       // create post data from form
@@ -69,7 +75,7 @@ employeeApp.controller('employeeNewCtrl', function($scope, $http) {
           "department": $scope.department
         },
         "bio": $scope.bio,
-        "imageBase64": image.resized.dataURL,
+        "imageBase64": imageOut,
         "manager": {
           "dsw": $scope.manager_dsw,
           "first": $scope.manager_first,
@@ -80,14 +86,7 @@ employeeApp.controller('employeeNewCtrl', function($scope, $http) {
 
       // send post request to api
       $http.post('/api/employee/new', data)
-        .then(function(res) {
-          console.log(res);
-          // if successful route back to home
-          Materialize.toast($scope.first + ' ' +
-            $scope.last + ' saved', 3000);
-        }, function(err) {
-          console.log(err);
-        });
+        .then(success, error);
     }
   };
 });
@@ -171,15 +170,19 @@ employeeApp.controller('employeeUpdateCtrl', function($scope, $http, $routeParam
       };
       // send post request to api
       $http.post('/api/employee/' + $routeParams.dsw + '/update', data)
-        .then(function(res) {
-          console.log(res);
-          Materialize.toast($scope.first +' '+ $scope.last+ ' updated', 4000)
-        }, function(err) {
-          console.log(err);
-        });
+        .then(success, error);
     }
   };
 });
+
+var success = function(res) {
+  console.log(res);
+  Materialize.toast($scope.first + ' ' + $scope.last + ' updated', 4000)
+}
+
+var error = function(err) {
+  console.log(err);
+}
 
 var pageLoadAnimation = function() {
   $('.card').animate({
@@ -190,5 +193,25 @@ var pageLoadAnimation = function() {
     $('h4.center-align').animate({
       opacity: 1
     }, 600, 'swing');
+    $('#back-btn').animate({
+      opacity: 1
+    }, 600, 'swing');
   }, 600);
+};
+
+var webcam = function() {
+  // stream webcam TODO
+  var video = document.querySelector("#videoElement");
+
+  navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia || navigator.oGetUserMedia;
+
+  if (navigator.getUserMedia) {
+    navigator.getUserMedia({
+      video: true
+    }, function handleVideo(stream) {
+      video.src = window.URL.createObjectURL(stream);
+    }, function videoError(err) {
+      console.log(err);
+    });
+  }
 };

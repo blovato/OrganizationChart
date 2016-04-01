@@ -24,3 +24,25 @@ body {
 h4.center-align {
 	opacity: 0;
 }
+
+a.secondary-content.edit {
+	margin-top: 25px;
+}
+
+#back-btn {
+	position: absolute;
+	top: 10px;
+	left: 20px;
+	opacity: 0;
+}
+#back-btn i {
+  color: #000 !important;
+  font-size: 2.5rem !important;
+}
+.rotate180 {
+	-webkit-transform: rotate(180deg);
+  -moz-transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  -o-transform: rotate(180deg);
+  transform: rotate(180deg);
+}
