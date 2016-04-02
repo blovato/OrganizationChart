@@ -9,6 +9,9 @@ body {
 .section {
   margin: 0 20px;
 }
+.sectionY {
+  padding: 14.5px 0;
+}
 
 #videoElement {
   width: 100%;
@@ -16,31 +19,62 @@ body {
   background-color: #f5f2f0;
 }
 
-.card {
+.card,
+ul.collection {
   opacity: 0;
   top: 150px;
 }
 
 h4.center-align {
-	opacity: 0;
+  opacity: 0;
 }
 
 a.secondary-content.edit {
-	margin-top: 25px;
+  margin-top: 25px;
+}
+
+a.edit-item-btn {
+  position: absolute;
+  right: -17px;
+  top: 5px;
+}
+
+.collection {
+  overflow: visible !important;
+}
+span.title {
+  font-weight: bold;
 }
 
 #back-btn {
-	position: absolute;
-	top: 10px;
-	left: 20px;
-	opacity: 0;
+  position: absolute;
+  top: 10px;
+  left: 20px;
+  opacity: 0;
 }
+
 #back-btn i {
   color: #000 !important;
   font-size: 2.5rem !important;
 }
+
+#search-bar {
+  margin-top: 45px;
+  opacity: 0;
+}
+
+#search {
+  margin-bottom: 0px;
+}
+
+#new-employee-btn {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+}
+
 .rotate180 {
-	-webkit-transform: rotate(180deg);
+  -webkit-transform: rotate(180deg);
   -moz-transform: rotate(180deg);
   -ms-transform: rotate(180deg);
   -o-transform: rotate(180deg);

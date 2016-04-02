@@ -25,15 +25,48 @@ var employeeApp = angular.module('employeeApp', ['imageupload', 'ngRoute'])
   ]);
 
 employeeApp.controller('employeeListCtrl', function($scope, $http) {
+  animation.pageLoad();
+
+  $scope.pageExit = animation.pageExit;
+
   $http.get('/api/employee')
-    .then(function(res){
-      $scope.employees = res.data;
-      console.log(res.data);
-    }, error)
+    .then(function(res) {
+      // add variables to each element
+      // to handle ui state
+      $scope.employees = _.map(res.data, function(val) {
+        val.active = false;
+        val.name = val.name.first + ' ' + val.name.last;
+        delete val.manager;
+        return val;
+      });
+
+    }, error);
+
+  $scope.hoverIn = function() {
+    this.hoverEdit = true;
+  };
+
+  $scope.hoverOut = function() {
+    this.hoverEdit = false;
+  };
+
+  $scope.toggle = function() {
+    this.active = !this.active;
+  };
+
+  $scope.isRecent = function(time) {
+    var now = new Date();
+    var editedAt = new Date(time);
+    if (now.getTime() - editedAt.getTime() < 9000000) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 });
 
 employeeApp.controller('employeeNewCtrl', function($scope, $http) {
-  pageLoadAnimation();
+  animation.pageLoad();
 
   // set scope
   $scope.form_title = "New Employee Form";
@@ -94,7 +127,7 @@ employeeApp.controller('employeeNewCtrl', function($scope, $http) {
 employeeApp.controller('employeeUpdateCtrl', function($scope, $http, $routeParams) {
   // make image input not required
   $('input[type=file]').attr('required', false);
-  pageLoadAnimation();
+  animation.pageLoad();
   // set title if http call lags
   $scope.form_title = 'Update Employee';
   // send post request to api
@@ -126,9 +159,7 @@ employeeApp.controller('employeeUpdateCtrl', function($scope, $http, $routeParam
       // set input labels to active to make readable
       $('label').addClass('active');
 
-    }, function(err) {
-      alert(err);
-    });
+    }, error);
 
   $scope.submitEmployeeForm = function(image) {
     // check image
@@ -175,30 +206,44 @@ employeeApp.controller('employeeUpdateCtrl', function($scope, $http, $routeParam
   };
 });
 
-var success = function(res) {
-  console.log(res);
-  Materialize.toast($scope.first + ' ' + $scope.last + ' updated', 4000)
-}
+var animation = {
+  pageLoad: function() {
+    window.scrollTo(0, 0);
+    $('#search').focus();
+    $('.card, ul.collection').animate({
+      opacity: 1,
+      top: 0
+    }, 1500, 'easeOutQuart');
+    setTimeout(function() {
+      $('h4.center-align, #search-bar, #back-btn').animate({
+        opacity: 1
+      }, 600, 'swing');
+    }, 600);
+  },
+  pageExit: function(url) {
+    $('.card, ul.collection').animate({
+      opacity: 0,
+      top: -500
+    }, 1000, 'easeOutQuart', function() {
+      //TODO finish search bar opac = 0
+      if (Number.isInteger(url)) {
+        location = '/employee/'+url+'/edit';
+      } else {
+        location = url;
+      }
+    });
+  }
+};
 
+var success = function(res) {
+  animation.pageExit('/employee');
+  console.log(res);
+}
 var error = function(err) {
   console.log(err);
 }
 
-var pageLoadAnimation = function() {
-  $('.card').animate({
-    opacity: 1,
-    top: 0
-  }, 1500, 'easeOutQuart');
-  setTimeout(function() {
-    $('h4.center-align').animate({
-      opacity: 1
-    }, 600, 'swing');
-    $('#back-btn').animate({
-      opacity: 1
-    }, 600, 'swing');
-  }, 600);
-};
-
+// TODO
 var webcam = function() {
   // stream webcam TODO
   var video = document.querySelector("#videoElement");
