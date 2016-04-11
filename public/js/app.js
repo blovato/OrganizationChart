@@ -67,7 +67,7 @@ employeeApp.controller('employeeListCtrl', function($scope, $http) {
 
 employeeApp.controller('employeeNewCtrl', function($scope, $http) {
   animation.pageLoad();
-
+  $scope.pageExit = animation.pageExit;
   // set scope
   $scope.form_title = "New Employee Form";
   $scope.imageIn = {};
@@ -125,9 +125,10 @@ employeeApp.controller('employeeNewCtrl', function($scope, $http) {
 });
 
 employeeApp.controller('employeeUpdateCtrl', function($scope, $http, $routeParams) {
-  // make image input not required
+  // make set initial ui state and animations
   $('input[type=file]').attr('required', false);
   animation.pageLoad();
+  $scope.pageExit = animation.pageExit;
   // set title if http call lags
   $scope.form_title = 'Update Employee';
   // send post request to api
@@ -221,13 +222,16 @@ var animation = {
     }, 600);
   },
   pageExit: function(url) {
+    $('h4.center-align, #search-bar, #back-btn')
+      .animate({opacity:0}, 350, 'swing');
+
     $('.card, ul.collection').animate({
       opacity: 0,
-      top: -500
-    }, 1000, 'easeOutQuart', function() {
+      top: -400
+    }, 800, 'easeInQuart',function() {
       //TODO finish search bar opac = 0
       if (Number.isInteger(url)) {
-        location = '/employee/'+url+'/edit';
+        location = '/employee/' + url + '/edit';
       } else {
         location = url;
       }

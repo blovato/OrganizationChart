@@ -1,15 +1,14 @@
 .container
 
-	a#new-employee-btn.btn-floating.orange.lighten-2(href='/employee/new') 
-		i.material-icons add
-
 	#search-bar.input-field
 		input#search(type='search',
 			ng-model="searchText")
 		label(for='search')
 			i.material-icons search
 
-	ul.collection(style)
+	ul.collection
+		li.collection-item-btn(ng-click='pageExit("/employee/new")')
+			p.center-align.margY0 + employee
 		li.collection-item.avatar(
 			ng-repeat='x in employees | filter:searchText | orderBy:"createdAt":true', 
 			ng-mouseover='hoverIn()',
