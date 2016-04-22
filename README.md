@@ -1,6 +1,7 @@
-## Organization Chart 
+#Organization Chart 
 
-###Setup:
+
+##Setup:
 To download:
 ```
 git clone https://github.com/blovato/OrganizationChart
@@ -17,15 +18,17 @@ mongoose.connect('mongodb://localhost:port/dbname');
 
 
 To run:
+```
+node server.js
+```
 
-`node server.js`
 
-
-###TODO:
+##TODO:
 - [ ] Add User Permissions and Auth
 - [ ] Integrate with IIS
 - [ ] Replace MongoDB with Active Directory or Data Warehouse
 
 
 Built by Brenten Lovato
+
 April 2016
