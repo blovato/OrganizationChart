@@ -1,5 +1,6 @@
-# Organization Chart 
+## Organization Chart 
 
+###Setup:
 To download:
 ```
 git clone https://github.com/blovato/OrganizationChart
@@ -20,7 +21,7 @@ To run:
 `node server.js`
 
 
-##TODO:
+###TODO:
 - [ ] Add User Permissions and Auth
 - [ ] Integrate with IIS
 - [ ] Replace MongoDB with Active Directory or Data Warehouse
