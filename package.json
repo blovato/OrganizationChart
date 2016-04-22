@@ -9,10 +9,10 @@
   },
   "keywords": [
     "org",
-    "chart"
+    "chart",
+    "sfdpw"
   ],
   "author": "Brenten Lovato",
-  "license": "ISC",
   "repository": {
     "type": "git",
     "url": "git://github.com/blovato/OrganizationChart.git"
@@ -22,7 +22,6 @@
     "angular-route": "^1.5.3",
     "body-parser": "^1.15.0",
     "d3": "^3.5.16",
-    "ejs": "^2.4.1",
     "express": "^4.13.4",
     "jade": "^1.11.0",
     "jquery": "^2.2.2",

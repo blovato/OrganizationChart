@@ -3,7 +3,10 @@ var app = express();
 var bodyParser = require('body-parser')
 var mongoose = require("mongoose");
 var _ = require('underscore');
+
+// connect to local db instance
 mongoose.connect('mongodb://devwebtest/employeesDPW');
+
 // set global root variable
 global.__root = __dirname + '/';
 
@@ -22,7 +25,7 @@ app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
 app.use(express.static(__dirname + '/public'));
 
-/**** API ****/
+/****  API  ****/
 // api route to get users based on their dsw number
 // /_api/employees?dsw=[XXXXXX]&first=[FIRSTNAME]&last=[LASTNAME]
 app.get('/api/employee', routes.api.getEmployee);
@@ -34,9 +37,14 @@ app.post('/api/employee/:dsw/update', routes.api.postUpdateEmployee);
 /**** ROUTES ****/
 // view route to org chart viewer
 app.get('/orgchart', routes.views.orgchart);
+
 // front end routing handled by Angular
 app.get('/', routes.views.layout);
 app.get('/partials/:name', routes.views.partials);
 app.get('*', routes.views.layout);
 
-app.listen(3001);
+// start server
+var port = 3000;
+app.listen(port, function() {
+	console.log('Server is running at http://localhost:' + port);
+});
