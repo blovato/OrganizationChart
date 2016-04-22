@@ -1,12 +1,12 @@
 # Organization Chart 
-for SF Dept. of Public Works
-
 
 To download:
+```
+git clone https://github.com/blovato/OrganizationChart
+cd OrganizationChart
+```
 
-`git clone https://github.com/blovato/OrganizationChart`
 
-`cd OrganizationChart`
 
 Start a MongoDB server and change the db connection url in server.js to your local instance
 
@@ -14,9 +14,16 @@ Start a MongoDB server and change the db connection url in server.js to your loc
 mongoose.connect('mongodb://localhost:port/dbname');
 ```
 
+
 To run:
 
 `node server.js`
+
+
+##TODO:
+- [ ] Add User Permissions and Auth
+- [ ] Integrate with IIS
+- [ ] Replace MongoDB with Active Directory or Data Warehouse
 
 
 Built by Brenten Lovato
