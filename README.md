@@ -1,8 +1,9 @@
-# Organization Chart for SF Dept. of Public Works
-Build by Brenten Lovato
-April 2016
+# Organization Chart 
+for SF Dept. of Public Works
+
 
 To download:
+
 `git clone https://github.com/blovato/OrganizationChart`
 
 `cd OrganizationChart`
@@ -16,3 +17,7 @@ mongoose.connect('mongodb://localhost:port/dbname');
 To run:
 
 `node server.js`
+
+
+Built by Brenten Lovato
+April 2016
