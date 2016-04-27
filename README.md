@@ -6,6 +6,7 @@ To download:
 ```
 git clone https://github.com/blovato/OrganizationChart
 cd OrganizationChart
+npm install
 ```
 
 
@@ -25,9 +26,13 @@ node server.js
 
 ##TODO:
 - [ ] Add User Permissions and Auth
-- [ ] Integrate with IIS
+- [ ] Integrate with node-IIS for hosting
 - [ ] Replace MongoDB with Active Directory or Data Warehouse
 
+
+
+##Description:
+Todo
 
 Built by Brenten Lovato
 
