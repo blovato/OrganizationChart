@@ -40,5 +40,4 @@ The editor/viewer has the url endpoints: `'/employee', '/employee/new', '/employ
 
 
 
-Built by Brenten Lovato
-April 2016
+Built by Brenten Lovato - April 2016
