@@ -32,7 +32,12 @@ node server.js
 
 
 ##Description:
-Todo
+Built with Node, Express, Angular with routing, Jade templating, and MongoDB. 
+The application has an editor/viewer for employee data that then generates a csv that the org chart reads from. The org chart is a separate entity from the editor/viewer and it is served statically without angular. The editor/viewer is dynamic and uses view templates to reuse code with a different data context. 
+The editor/viewer has the url endpoints: `'/employee', '/employee/new', '/employee/[x]/edit'` and the orgchart is at `'/orgchart'`.
+
+
+
 
 Built by Brenten Lovato
 
